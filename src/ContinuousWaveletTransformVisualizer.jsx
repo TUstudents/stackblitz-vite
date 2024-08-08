@@ -311,97 +311,130 @@ const ContinuousWaveletTransformVisualizer = () => {
   }, [cwtResult, renderCWT]);
 
   return (
-    <div className="flex flex-col items-center p-4 bg-gray-900 text-white min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">Continuous Wavelet Transform Visualizer</h1>
-      <div className="w-full max-w-6xl space-y-4">
-        <div className="flex space-x-4">
+    <div className="flex flex-col items-center p-4 sm:p-6 lg:p-8 bg-gray-900 text-white min-h-screen">
+      <h1 className="text-3xl sm:text-4xl font-bold mb-6">Continuous Wavelet Transform Visualizer</h1>
+      
+      <div className="w-full max-w-6xl space-y-6">
+        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <Select value={waveletType} onValueChange={setWaveletType}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] bg-gray-800 text-gray-100 border-gray-700">
               <SelectValue placeholder="Wavelet Type" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="morlet">Morlet</SelectItem>
-              <SelectItem value="mexicanHat">Mexican Hat</SelectItem>
+            <SelectContent className="bg-gray-800 text-gray-100 border-gray-700">
+              <SelectItem value="morlet" className="hover:bg-gray-700">Morlet</SelectItem>
+              <SelectItem value="mexicanHat" className="hover:bg-gray-700">Mexican Hat</SelectItem>
             </SelectContent>
           </Select>
           <Select value={signalType} onValueChange={setSignalType}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] bg-gray-800 text-gray-100 border-gray-700">
               <SelectValue placeholder="Signal Type" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="sine">Sine Wave</SelectItem>
-              <SelectItem value="square">Square Wave</SelectItem>
-              <SelectItem value="sawtooth">Sawtooth Wave</SelectItem>
-              <SelectItem value="chirp">Chirp Signal</SelectItem>
+            <SelectContent className="bg-gray-800 text-gray-100 border-gray-700">
+              <SelectItem value="sine" className="hover:bg-gray-700">Sine Wave</SelectItem>
+              <SelectItem value="square" className="hover:bg-gray-700">Square Wave</SelectItem>
+              <SelectItem value="sawtooth" className="hover:bg-gray-700">Sawtooth Wave</SelectItem>
+              <SelectItem value="chirp" className="hover:bg-gray-700">Chirp Signal</SelectItem>
             </SelectContent>
           </Select>
         </div>
-        <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">Frequency</label>
-          <Slider value={[frequency]} onValueChange={([value]) => setFrequency(value)} min={0.1} max={10} step={0.1} />
-          <span className="text-sm text-gray-400">{frequency.toFixed(1)} Hz</span>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Amplitude</label>
-          <Slider value={[amplitude]} onValueChange={([value]) => setAmplitude(value)} min={0.1} max={2} step={0.1} />
-          <span className="text-sm text-gray-400">{amplitude.toFixed(1)}</span>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Noise Level</label>
-          <Slider value={[noiseLevel]} onValueChange={([value]) => setNoiseLevel(value)} min={0} max={1} step={0.05} />
-          <span className="text-sm text-gray-400">{noiseLevel.toFixed(2)}</span>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Frequency</label>
+            <Slider
+              value={[frequency]}
+              onValueChange={([value]) => setFrequency(value)}
+              min={0.1}
+              max={10}
+              step={0.1}
+              className="w-full"
+            />
+            <span className="text-sm text-gray-400 mt-1 block">{frequency.toFixed(1)} Hz</span>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Amplitude</label>
+            <Slider
+              value={[amplitude]}
+              onValueChange={([value]) => setAmplitude(value)}
+              min={0.1}
+              max={2}
+              step={0.1}
+              className="w-full"
+            />
+            <span className="text-sm text-gray-400 mt-1 block">{amplitude.toFixed(1)}</span>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Noise Level</label>
+            <Slider
+              value={[noiseLevel]}
+              onValueChange={([value]) => setNoiseLevel(value)}
+              min={0}
+              max={1}
+              step={0.05}
+              className="w-full"
+            />
+            <span className="text-sm text-gray-400 mt-1 block">{noiseLevel.toFixed(2)}</span>
+          </div>
         </div>
       </div>
+      
       <div className="mt-8 w-full max-w-6xl">
-  <h2 className="text-2xl font-bold mb-4">Input Signal</h2>
-  <ResponsiveContainer width="100%" height={200}>
-    <LineChart data={signal}>
-      <XAxis dataKey="t"
-      domain={['auto', 'auto']}
-      tickCount={5}
-      tickFormatter={(value) => value.toFixed(2)} />
-      <YAxis 
-        width={50}
-        domain={['auto', 'auto']}
-        tickCount={5}
-        tickFormatter={(value) => value.toFixed(2)}
-      />
-      <Tooltip />
-      <Line type="monotone" dataKey="value" stroke="#8884d8" dot={false} />
-    </LineChart>
-  </ResponsiveContainer>
-</div>
+        <h2 className="text-2xl font-bold mb-4">Input Signal</h2>
+        <div className="h-[200px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={signal}>
+              <XAxis
+                dataKey="t"
+                domain={['auto', 'auto']}
+                tickCount={5}
+                tickFormatter={(value) => value.toFixed(2)}
+              />
+              <YAxis 
+                width={50}
+                domain={['auto', 'auto']}
+                tickCount={5}
+                tickFormatter={(value) => value.toFixed(2)}
+              />
+              <Tooltip />
+              <Line type="monotone" dataKey="value" stroke="#8884d8" dot={false} strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      
       <div className="mt-8 w-full max-w-6xl">
         <h2 className="text-2xl font-bold mb-4">Continuous Wavelet Transform</h2>
         {isCalculating ? (
-          <div className="flex items-center justify-center h-[300px]">
-          <Loader className="h-8 w-8 animate-spin" />
-          <span className="ml-2">Calculating CWT...</span>
-        </div>
-      ) : cwtImageRef.current ? (
-        <div className="relative">
-          <img src={cwtImageRef.current} alt="CWT Scaleogram" className="w-full h-[300px] object-cover" />
-          <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs">
-            <span>High Freq</span>
-            <span>Low Freq</span>
+          <div className="flex items-center justify-center h-[300px] bg-gray-800 rounded-lg">
+            <Loader className="h-8 w-8 animate-spin text-blue-500" />
+            <span className="ml-2 text-lg">Calculating CWT...</span>
           </div>
-        </div>
-      ) : (
-        <div className="flex items-center justify-center h-[300px] text-red-500">
-          No CWT result available
-        </div>
-      )}
+        ) : cwtImageRef.current ? (
+          <div className="relative">
+            <img src={cwtImageRef.current} alt="CWT Scaleogram" className="w-full h-[300px] object-cover rounded-lg" />
+            <div className="absolute left-2 top-0 h-full flex flex-col justify-between text-xs">
+              <span className="bg-black bg-opacity-50 px-1 rounded">High Freq</span>
+              <span className="bg-black bg-opacity-50 px-1 rounded">Low Freq</span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-[300px] bg-gray-800 rounded-lg text-red-500 text-lg">
+            No CWT result available
+          </div>
+        )}
       </div>
+      
       <div className="mt-8 w-full max-w-6xl">
         <h2 className="text-2xl font-bold mb-4">Debug Information</h2>
-        <pre className="bg-gray-800 p-4 rounded overflow-auto max-h-60 text-xs">
+        <pre className="bg-gray-800 p-4 rounded-lg overflow-auto max-h-60 text-xs">
           {debugInfo}
         </pre>
       </div>
-      <Alert className="mt-8 w-full max-w-6xl">
-        <Activity className="h-4 w-4" />
-        <AlertTitle>About the CWT</AlertTitle>
-        <AlertDescription>
+      
+      <Alert className="mt-8 w-full max-w-6xl bg-blue-900 border-blue-700">
+        <Activity className="h-4 w-4 text-blue-400" />
+        <AlertTitle className="text-blue-300">About the CWT</AlertTitle>
+        <AlertDescription className="text-blue-100">
           The Continuous Wavelet Transform (CWT) shown above is calculated using an optimized implementation of the transform. 
           The x-axis represents time, the y-axis represents scale (inverse of frequency, with high frequencies at the top), 
           and the color intensity represents the magnitude of the wavelet coefficients. Brighter colors indicate stronger 
