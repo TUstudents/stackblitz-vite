@@ -1,9 +1,10 @@
-import StarChart from './StarChart';
+import RefractiveSphere from './RefractiveSphere';
 
 function App() {
   return (
     <div className="App">
-      <StarChart />
+      <h1>Refractive Sphere Simulation</h1>
+      <RefractiveSphere />
     </div>
   );
 }
