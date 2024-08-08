@@ -1,9 +1,9 @@
-import ContinuousWaveletTransformVisualizer from './ContinuousWaveletTransformVisualizer';
+import StarChart from './StarChart';
 
 function App() {
   return (
     <div className="App">
-      <ContinuousWaveletTransformVisualizer />
+      <StarChart />
     </div>
   );
 }
